@@ -1338,26 +1338,26 @@ export class FormArray extends AbstractControl {
   /**
    * Insert a new `AbstractControl` at the end of the array.
    */
-  push(control: AbstractControl): void {
+  push(control: AbstractControl, options: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
     this.controls.push(control);
     this._registerControl(control);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity(options);
     this._onCollectionChange();
   }
 
   /** Insert a new `AbstractControl` at the given `index` in the array. */
-  insert(index: number, control: AbstractControl): void {
+  insert(index: number, control: AbstractControl, options: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
     this.controls.splice(index, 0, control);
 
     this._registerControl(control);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity(options);
   }
 
   /** Remove the control at the given `index` in the array. */
-  removeAt(index: number): void {
+  removeAt(index: number, options: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
     if (this.controls[index]) this.controls[index]._registerOnCollectionChange(() => {});
     this.controls.splice(index, 1);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity(options);
   }
 
   /**
